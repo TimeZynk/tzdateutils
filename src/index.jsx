@@ -318,8 +318,10 @@ export default function installDateExtensions(scope) {
          *
          * @return int
          */
-        prototype.getWeek = () => {
-            console.warn('Use of deprecated function Date.prototype.getWeek()');
+        prototype.getWeek = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.getWeek()');
+            }
             return getWeek(this);
         };
 
@@ -329,18 +331,24 @@ export default function installDateExtensions(scope) {
         *
         * @return int
         */
-        prototype.getWeekYear = () => {
-            console.warn('Use of deprecated function Date.prototype.getWeekYear()');
+        prototype.getWeekYear = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.getWeekYear()');
+            }
             return getWeekYear(this);
         };
 
-        prototype.getISODateString = (separator) => {
-            console.warn('Use of deprecated function Date.prototype.getISODateString()');
+        prototype.getISODateString = function(separator) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.getISODateString()');
+            }
             return getISODateString(this, separator);
         };
 
-        prototype.getTimeString = () => {
-            console.warn('Use of deprecated function Date.prototype.getTimeString()');
+        prototype.getTimeString = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.getTimeString()');
+            }
             return getTimeString(this);
         };
 
@@ -348,125 +356,173 @@ export default function installDateExtensions(scope) {
          * Return the day of week according to the ISO standard. Will use 0 for monday
          * and 6 for sunday.
          */
-        prototype.getISODay = () => {
-            console.warn('Use of deprecated function Date.prototype.getISODay()');
+        prototype.getISODay = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.getISODay()');
+            }
             return getISODay(this);
         };
 
-        prototype.getDaysFrom = (from) => {
-            console.warn('Use of deprecated function Date.prototype.getDaysFrom()');
+        prototype.getDaysFrom = function(from) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.getDaysFrom()');
+            }
             return getDaysFrom(this, from);
         };
 
-        prototype.getTotalDaysInMonth = () => {
-            console.warn('Use of deprecated function Date.prototype.getTotalDaysInMonth()');
+        prototype.getTotalDaysInMonth = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.getTotalDaysInMonth()');
+            }
             return getTotalDaysInMonth(this);
         };
 
-        prototype.parseISODate = (str) => {
-            console.warn('Use of deprecated function Date.prototype.parseISODate()');
+        prototype.parseISODate = function(str) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.parseISODate()');
+            }
             return withParsedISODate(this, str);
         };
 
-        prototype.getEpoch = () => {
-            console.warn('Use of deprecated function Date.prototype.getEpoch()');
+        prototype.getEpoch = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.getEpoch()');
+            }
             return getEpoch(this);
         };
 
-        prototype.addSeconds = (seconds) => {
-            console.warn('Use of deprecated function Date.prototype.addSeconds()');
+        prototype.addSeconds = function(seconds) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.addSeconds()');
+            }
             return addSeconds(this, seconds);
         };
 
-        prototype.addDays = (days) => {
-            console.warn('Use of deprecated function Date.prototype.addDays()');
+        prototype.addDays = function(days) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.addDays()');
+            }
             return addDays(this, days);
         };
 
-        prototype.addMonths = (months) => {
-            console.warn('Use of deprecated function Date.prototype.addMonths()');
+        prototype.addMonths = function(months) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.addMonths()');
+            }
             return addMonths(this, months);
         };
 
-        prototype.addYears = (years) => {
-            console.warn('Use of deprecated function Date.prototype.addYears()');
+        prototype.addYears = function(years) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.addYears()');
+            }
             return addYears(this, years);
         };
 
-        prototype.addHours = (h) => {
-            console.warn('Use of deprecated function Date.prototype.addHours()');
+        prototype.addHours = function(h) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.addHours()');
+            }
             return addHours(this, h);
         };
 
-        prototype.addMinutes = (m) => {
-            console.warn('Use of deprecated function Date.prototype.addMinutes()');
+        prototype.addMinutes = function(m) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.addMinutes()');
+            }
             return addMinutes(this, m);
         };
 
-        prototype.toStartOfDay = () => {
-            console.warn('Use of deprecated function Date.prototype.toStartOfDay()');
+        prototype.toStartOfDay = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.toStartOfDay()');
+            }
             return toStartOfDay(this);
         };
 
-        prototype.toEndOfDay = () => {
-            console.warn('Use of deprecated function Date.prototype.toEndOfDay()');
+        prototype.toEndOfDay = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.toEndOfDay()');
+            }
             return toEndOfDay(this);
         };
 
-        prototype.firstDayOfWeek = () => {
-            console.warn('Use of deprecated function Date.prototype.firstDayOfWeek()');
+        prototype.firstDayOfWeek = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.firstDayOfWeek()');
+            }
             return firstDayOfWeek(this);
         };
 
-        prototype.lastDayOfWeek = () => {
-            console.warn('Use of deprecated function Date.prototype.lastDayOfWeek()');
+        prototype.lastDayOfWeek = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.lastDayOfWeek()');
+            }
             return lastDayOfWeek(this);
         };
 
-        prototype.firstDayOfMonth = () => {
-            console.warn('Use of deprecated function Date.prototype.firstDayOfMonth()');
+        prototype.firstDayOfMonth = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.firstDayOfMonth()');
+            }
             return firstDayOfMonth(this);
         };
 
-        prototype.lastDayOfMonth = () => {
-            console.warn('Use of deprecated function Date.prototype.lastDayOfMonth()');
+        prototype.lastDayOfMonth = function() {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.lastDayOfMonth()');
+            }
             return lastDayOfMonth(this);
         };
 
-        prototype.withTime = (date) => {
-            console.warn('Use of deprecated function Date.prototype.withTime()');
+        prototype.withTime = function(date) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.withTime()');
+            }
             return withTime(this, date);
         };
 
-        prototype.parseISOTime = (time) => {
-            console.warn('Use of deprecated function Date.prototype.parseISOTime()');
+        prototype.parseISOTime = function(time) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.parseISOTime()');
+            }
             return withParsedTime(this, time);
         };
 
-        prototype.firstTimeAfter = (date) => {
-            console.warn('Use of deprecated function Date.prototype.firstTimeAfter()');
+        prototype.firstTimeAfter = function(date) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function Date.prototype.firstTimeAfter()');
+            }
             return firstTimeAfter(this, date);
         };
     }(scope.Date.prototype));
 
     (function installDateFunctions(window) {
         window.print_duration = (...args) => {
-            console.warn('Use of deprecated function window.print_duration()');
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function window.print_duration()');
+            }
             return print_duration(...args);
         };
 
         window.print_duration_long = (...args) => {
-            console.warn('Use of deprecated function window.print_duration_long()');
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function window.print_duration_long()');
+            }
             return print_duration_long(...args);
         };
 
         window.parseISODateTime = (...args) => {
-            console.warn('Use of deprecated function window.parseISODateTime()');
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function window.parseISODateTime()');
+            }
             return parseISODateTime(...args);
         };
 
         window.parseISODate = (...args) => {
-            console.warn('Use of deprecated function window.parseISODate()');
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Use of deprecated function window.parseISODate()');
+            }
             return parseISODate(...args);
         };
     }(scope));
