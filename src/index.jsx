@@ -1,12 +1,10 @@
-const _ = require('lodash');
-
 export function getWeek(date) {
     // Create a copy of date object
-    var target = new Date(date.valueOf());
+    const target = new Date(date.valueOf());
 
     // ISO week date weeks start on monday
     // so correct the day number
-    var dayNr = (date.getDay() + 6) % 7;
+    const dayNr = (date.getDay() + 6) % 7;
 
     // ISO 8601 states that week 1 is the week
     // with the first thursday of that year.
@@ -14,13 +12,13 @@ export function getWeek(date) {
     target.setDate(target.getDate() - dayNr + 3);
 
     // Store the millisecond value of the target date
-    var firstThursday = target.valueOf();
+    const firstThursday = target.valueOf();
 
     // Set the target to the first thursday of the year
     // First set the target to january first
     target.setMonth(0, 1);
     // Not a thursday? Correct the date to the next thursday
-    if (target.getDay() != 4) {
+    if (target.getDay() !== 4) {
         target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
     }
 
@@ -31,18 +29,17 @@ export function getWeek(date) {
 
 export function getWeekYear(date) {
     // Create a new date object for the thursday of this week
-    var target  = new Date(date.valueOf());
+    const target = new Date(date.valueOf());
     target.setDate(target.getDate() - ((date.getDay() + 6) % 7) + 3);
-
     return target.getFullYear();
-};
+}
 
 export function getISODateString(date, separator) {
-    var str = String(date.getFullYear());
-    var m = date.getMonth() + 1;
-    var d = date.getDate();
+    let str = String(date.getFullYear());
+    const m = date.getMonth() + 1;
+    const d = date.getDate();
 
-    if(separator !== undefined) {
+    if (separator !== undefined) {
         str += separator;
     }
 
@@ -51,7 +48,7 @@ export function getISODateString(date, separator) {
     }
     str += m;
 
-    if(separator !== undefined) {
+    if (separator !== undefined) {
         str += separator;
     }
 
@@ -61,17 +58,17 @@ export function getISODateString(date, separator) {
     str += d;
 
     return str;
-};
+}
 
 export function getTimeString(date) {
-    var str = '',
-        h = date.getHours(),
-        m = date.getMinutes();
+    let str = '';
+    const h = date.getHours();
+    const m = date.getMinutes();
 
-    if (h < 10){str += '0';}
+    if (h < 10) { str += '0'; }
     str += h + ':';
 
-    if (m < 10){str += '0';}
+    if (m < 10) { str += '0'; }
     str += m;
     return str;
 }
@@ -81,17 +78,19 @@ export function getISODay(date) {
 }
 
 export function getDaysFrom(date, from) {
-    return Math.round(((new Date(date)).setHours(12,0,0) - (new Date(from)).setHours(12,0,0))/86400000);
+    const dateMidDay = (new Date(date)).setHours(12, 0, 0);
+    const fromMidDay = (new Date(from)).setHours(12, 0, 0);
+    return Math.round((dateMidDay - fromMidDay) / 86400000);
 }
 
 export function getTotalDaysInMonth(date) {
     return 32 - new Date(date.getFullYear(), date.getMonth(), 32).getDate();
-};
+}
 
 export function withParsedISODate(date, str) {
-    var year = str.substr(0, 4);
-    var month = str.substr(4, 2);
-    var dayOfMonth = str.substr(6, 2);
+    let year = str.substr(0, 4);
+    let month = str.substr(4, 2);
+    let dayOfMonth = str.substr(6, 2);
 
     // Parse into integers
     year = parseInt(year, 10);
@@ -100,124 +99,118 @@ export function withParsedISODate(date, str) {
 
     date.setFullYear(year, month, dayOfMonth);
     return date;
-};
+}
 
 export function getEpoch(date) {
     return Math.floor(date.getTime() / 1000);
-};
+}
 
 export function addSeconds(date, seconds) {
-    var d = new Date(date);
+    const d = new Date(date);
     d.setSeconds(d.getSeconds() + seconds, d.getMilliseconds());
     return d;
-};
+}
 
 export function addDays(date, days) {
-    var d = new Date(date);
+    const d = new Date(date);
     d.setDate(date.getDate() + days);
     return d;
-};
+}
 
 export function addMonths(date, months) {
-    var d = new Date(date);
+    const d = new Date(date);
     d.setMonth(date.getMonth() + months);
     return d;
-};
+}
 
 export function addYears(date, years) {
-    var d = new Date(date);
+    const d = new Date(date);
     d.setFullYear(date.getFullYear() + years);
     return d;
-};
+}
 
-export function addHours(date, h){
-    var d = new Date(date);
-    d.setHours(date.getHours()+h);
+export function addHours(date, h) {
+    const d = new Date(date);
+    d.setHours(date.getHours() + h);
     return d;
-};
+}
 
-export function addMinutes(date, m){
-    var d = new Date(date);
+export function addMinutes(date, m) {
+    const d = new Date(date);
     d.setMinutes(date.getMinutes() + m);
     return d;
-};
+}
 
 export function toStartOfDay(date) {
-    var d = new Date(date);
-    d.setHours(0,0,0,0);
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
     return d;
-};
+}
 
 export function toEndOfDay(date) {
-    var d = new Date(date);
-    d.setHours(23,59,59,999);
+    const d = new Date(date);
+    d.setHours(23, 59, 59, 999);
     return d;
-};
+}
 
 export function firstDayOfWeek(date) {
-    var d = new Date(date),
-        day = d.addDays(-d.getISODay()); // Subtract current weekday to get to monday
-    return day;
-};
+    return addDays(date, -getISODay(date)); // Subtract current weekday to get to monday
+}
 
 export function lastDayOfWeek(date) {
-    var d = new Date(date),
-        day = d.addDays(6 - d.getISODay()); // Subtract current weekday to get to monday
-    return day;
-};
+    return addDays(date, 6 - getISODay(date)); // Subtract current weekday to get to monday
+}
 
 export function firstDayOfMonth(date) {
-    var d = new Date(date);
+    const d = new Date(date);
     d.setDate(1);
     return d;
-};
+}
 
 export function lastDayOfMonth(date) {
-    var d = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    return d;
-};
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+}
 
 export function withTime(date, other) {
-    var d = new Date(date);
+    const d = new Date(date);
     if (other instanceof Date) {
         d.setHours(other.getHours(), other.getMinutes(), other.getSeconds(), other.getMilliseconds());
     }
     return d;
-};
+}
 
 export function withParsedTime(date, time) {
-    var hours = [0,0,0,0];
-    var d = new Date(date);
-    var i;
+    const hours = [0, 0, 0, 0];
+    const d = new Date(date);
 
-    time = time.split(':');
-    for (i = 0; i < time.length; i++) {
-        hours[i] = parseInt(time[i], 10);
+    const times = time.split(':');
+    for (let i = 0; i < times.length; i++) {
+        hours[i] = parseInt(times[i], 10);
     }
 
-    d.setHours.apply(d, hours);
+    d.setHours(...hours);
     return d;
-};
+}
 
 export function firstTimeAfter(date, other) {
-    var d = other.withTime(date);
+    let d = other.withTime(date);
 
     while (d < other) {
-        d = d.addDays(1);
+        d = addDays(d, 1);
     }
 
     return d;
-};
+}
 
 /**
  * Prints a duration in HH:MM from a timestamp in seconds
  */
 export function print_duration(timestamp) {
-    var result = '',
-        hours,
-        minutes;
+    let result = '';
+    let hours;
+    let minutes;
 
-    if (_.isUndefined(timestamp) || _.isNull(timestamp)) {
+    if (timestamp === null || typeof (timestamp) === 'undefined') {
         return null;
     }
 
@@ -236,7 +229,7 @@ export function print_duration(timestamp) {
     result += minutes;
 
     return result;
-};
+}
 
 /**
  * return a duration as HH h MM min
@@ -244,11 +237,11 @@ export function print_duration(timestamp) {
  * @return duration as HH h MM min
  */
 export function print_duration_long(timestamp) {
-    var result = '',
-        hours,
-        minutes;
+    let result = '';
+    let hours;
+    let minutes;
 
-    if (_.isUndefined(timestamp) || _.isNull(timestamp)) {
+    if (timestamp === null || typeof (timestamp) === 'undefined') {
         return null;
     }
 
@@ -273,51 +266,46 @@ export function print_duration_long(timestamp) {
     }
 
     return result;
-};
+}
 
-var iso_date_time_format = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{3})/;
+const ISO_DATE_TIME_FORMAT = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{3})/;
 
 export function parseISODateTime(t) {
-    var fields,
-        date,
-        time,
-        i,
-        d;
-
-    if (_.isUndefined(t) || _.isNull(t)) {
+    if (t === null || typeof (t) === 'undefined') {
         return null;
     }
 
-    if (_.isDate(t)) {
-        return new Date(t);
+    if (typeof (t.getTime) === 'function') {
+        // Already a date, just return a copy
+        return new Date(t.getTime());
     }
 
-    fields = t.match(iso_date_time_format);
+    const fields = t.match(ISO_DATE_TIME_FORMAT);
 
     if (!fields) {
         return null;
     }
 
-    for (i = 1; i < fields.length; i++) {
+    for (let i = 1; i < fields.length; i++) {
         fields[i] = parseInt(fields[i], 10);
     }
-    date = fields.slice(1, 4);
+    const date = fields.slice(1, 4);
     date[1] -= 1;
-    time = fields.slice(4);
+    const time = fields.slice(4);
 
-    d = new Date();
-    d.setFullYear.apply(d, date);
-    d.setHours.apply(d, time);
+    const d = new Date();
+    d.setFullYear(...date);
+    d.setHours(...time);
     return d;
-};
+}
 
 export function parseISODate(d) {
-    if (_.isUndefined(d) || _.isNull(d)) {
+    if (d === null || typeof (d) === 'undefined') {
         return null;
     }
 
     return parseISODateTime(d + "T00:00:00.000");
-};
+}
 
 export default function installDateExtensions(scope) {
     /**
@@ -330,7 +318,7 @@ export default function installDateExtensions(scope) {
          *
          * @return int
          */
-        prototype.getWeek = function() {
+        prototype.getWeek = () => {
             console.warn('Use of deprecated function Date.prototype.getWeek()');
             return getWeek(this);
         };
@@ -341,17 +329,17 @@ export default function installDateExtensions(scope) {
         *
         * @return int
         */
-        prototype.getWeekYear = function () {
+        prototype.getWeekYear = () => {
             console.warn('Use of deprecated function Date.prototype.getWeekYear()');
             return getWeekYear(this);
         };
 
-        prototype.getISODateString = function(separator) {
+        prototype.getISODateString = (separator) => {
             console.warn('Use of deprecated function Date.prototype.getISODateString()');
             return getISODateString(this, separator);
         };
 
-        prototype.getTimeString = function() {
+        prototype.getTimeString = () => {
             console.warn('Use of deprecated function Date.prototype.getTimeString()');
             return getTimeString(this);
         };
@@ -360,112 +348,126 @@ export default function installDateExtensions(scope) {
          * Return the day of week according to the ISO standard. Will use 0 for monday
          * and 6 for sunday.
          */
-        prototype.getISODay = function() {
+        prototype.getISODay = () => {
             console.warn('Use of deprecated function Date.prototype.getISODay()');
             return getISODay(this);
         };
 
-        prototype.getDaysFrom = function(from) {
+        prototype.getDaysFrom = (from) => {
             console.warn('Use of deprecated function Date.prototype.getDaysFrom()');
             return getDaysFrom(this, from);
         };
 
-        prototype.getTotalDaysInMonth = function() {
+        prototype.getTotalDaysInMonth = () => {
             console.warn('Use of deprecated function Date.prototype.getTotalDaysInMonth()');
             return getTotalDaysInMonth(this);
         };
 
-        prototype.parseISODate = function(str) {
+        prototype.parseISODate = (str) => {
             console.warn('Use of deprecated function Date.prototype.parseISODate()');
             return withParsedISODate(this, str);
         };
 
-        prototype.getEpoch = function() {
+        prototype.getEpoch = () => {
             console.warn('Use of deprecated function Date.prototype.getEpoch()');
             return getEpoch(this);
         };
 
-        prototype.addSeconds = function(seconds) {
+        prototype.addSeconds = (seconds) => {
             console.warn('Use of deprecated function Date.prototype.addSeconds()');
             return addSeconds(this, seconds);
         };
 
-        prototype.addDays = function(days) {
+        prototype.addDays = (days) => {
             console.warn('Use of deprecated function Date.prototype.addDays()');
             return addDays(this, days);
         };
 
-        prototype.addMonths = function(months) {
+        prototype.addMonths = (months) => {
             console.warn('Use of deprecated function Date.prototype.addMonths()');
             return addMonths(this, months);
         };
 
-        prototype.addYears = function(years) {
+        prototype.addYears = (years) => {
             console.warn('Use of deprecated function Date.prototype.addYears()');
             return addYears(this, years);
         };
 
-        prototype.addHours = function(h){
+        prototype.addHours = (h) => {
             console.warn('Use of deprecated function Date.prototype.addHours()');
             return addHours(this, h);
         };
 
-        prototype.addMinutes = function(m){
+        prototype.addMinutes = (m) => {
             console.warn('Use of deprecated function Date.prototype.addMinutes()');
             return addMinutes(this, m);
         };
 
-        prototype.toStartOfDay = function() {
+        prototype.toStartOfDay = () => {
             console.warn('Use of deprecated function Date.prototype.toStartOfDay()');
             return toStartOfDay(this);
         };
 
-        prototype.toEndOfDay = function() {
+        prototype.toEndOfDay = () => {
             console.warn('Use of deprecated function Date.prototype.toEndOfDay()');
             return toEndOfDay(this);
         };
 
-        prototype.firstDayOfWeek = function() {
+        prototype.firstDayOfWeek = () => {
             console.warn('Use of deprecated function Date.prototype.firstDayOfWeek()');
             return firstDayOfWeek(this);
         };
 
-        prototype.lastDayOfWeek = function() {
+        prototype.lastDayOfWeek = () => {
             console.warn('Use of deprecated function Date.prototype.lastDayOfWeek()');
             return lastDayOfWeek(this);
         };
 
-        prototype.firstDayOfMonth = function() {
+        prototype.firstDayOfMonth = () => {
             console.warn('Use of deprecated function Date.prototype.firstDayOfMonth()');
             return firstDayOfMonth(this);
         };
 
-        prototype.lastDayOfMonth = function() {
+        prototype.lastDayOfMonth = () => {
             console.warn('Use of deprecated function Date.prototype.lastDayOfMonth()');
             return lastDayOfMonth(this);
         };
 
-        prototype.withTime = function(date) {
+        prototype.withTime = (date) => {
             console.warn('Use of deprecated function Date.prototype.withTime()');
             return withTime(this, date);
         };
 
-        prototype.parseISOTime = function(time) {
+        prototype.parseISOTime = (time) => {
             console.warn('Use of deprecated function Date.prototype.parseISOTime()');
             return withParsedTime(this, time);
         };
 
-        prototype.firstTimeAfter = function(date) {
+        prototype.firstTimeAfter = (date) => {
             console.warn('Use of deprecated function Date.prototype.firstTimeAfter()');
             return firstTimeAfter(this, date);
         };
-
     }(scope.Date.prototype));
 
     (function installDateFunctions(window) {
-        window.print_duration = print_duration;
-        window.print_duration_long = print_duration_long;
-        window.parseISODateTime = parseISODateTime;
-        window.parseISODate = parseISODate;
+        window.print_duration = (...args) => {
+            console.warn('Use of deprecated function window.print_duration()');
+            return print_duration(...args);
+        };
+
+        window.print_duration_long = (...args) => {
+            console.warn('Use of deprecated function window.print_duration_long()');
+            return print_duration_long(...args);
+        };
+
+        window.parseISODateTime = (...args) => {
+            console.warn('Use of deprecated function window.parseISODateTime()');
+            return parseISODateTime(...args);
+        };
+
+        window.parseISODate = (...args) => {
+            console.warn('Use of deprecated function window.parseISODate()');
+            return parseISODate(...args);
+        };
     }(scope));
-};
+}
