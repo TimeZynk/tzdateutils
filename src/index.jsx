@@ -193,11 +193,21 @@ export function lastDayOfMonth(date) {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0);
 }
 
+/**
+ * Copy time from `other` date to date while
+ * preserving year, month and day.
+ */
 export function withTime(date, other) {
     const d = new Date(date);
     if (other instanceof Date) {
         d.setHours(other.getHours(), other.getMinutes(), other.getSeconds(), other.getMilliseconds());
     }
+    return d;
+}
+
+export function withSeconds(date, seconds) {
+    const d = new Date(date);
+    d.setSeconds(seconds, 0);
     return d;
 }
 

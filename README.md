@@ -86,7 +86,15 @@ export function lastDayOfMonth(date) {...}
 ```
 
 ```
+/**
+ * Copy time from `other` date to date while
+ * preserving year, month and day.
+ */
 export function withTime(date, other) {...}
+```
+
+```
+export function withSeconds(date, seconds) {
 ```
 
 ```
