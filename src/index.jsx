@@ -300,7 +300,7 @@ export function print_duration_long(timestamp) {
     return result;
 }
 
-const ISO_DATE_TIME_FORMAT = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{3})/;
+const ISO_DATE_TIME_FORMAT = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?(?:\.(\d{3}))?/;
 
 export function parseISODateTime(t) {
     if (t === null || typeof (t) === 'undefined') {
@@ -319,7 +319,7 @@ export function parseISODateTime(t) {
     }
 
     for (let i = 1; i < fields.length; i++) {
-        fields[i] = parseInt(fields[i], 10);
+        fields[i] = parseInt(fields[i] || 0, 10);
     }
     const date = fields.slice(1, 4);
     date[1] -= 1;
