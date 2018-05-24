@@ -300,6 +300,29 @@ export function print_duration_long(timestamp) {
     return result;
 }
 
+/**
+ * return duration with seconds
+ */
+export function print_duration_full(timestamp) {
+    const total = Math.round(timestamp / 1000);
+    const seconds = total % 60;
+    const minutes = (total - seconds) % 3600;
+    const hours = total - minutes - seconds;
+    const output = [];
+
+    if (hours > 0) {
+        output.push((hours / 3600) + ' h');
+    }
+
+    if (minutes > 0 || hours > 0) {
+        output.push((minutes / 60) + ' m');
+    }
+
+    output.push(seconds + ' s');
+
+    return output.join(' ');
+}
+
 const ISO_DATE_TIME_FORMAT = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?(?:\.(\d{3}))?/;
 
 export function parseISODateTime(t) {

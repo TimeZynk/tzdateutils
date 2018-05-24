@@ -114,6 +114,13 @@ export function print_duration_long(timestamp) {...}
 ```
 
 ```
+/**
+ * return duration with seconds
+ */
+export function print_duration_full(timestamp) {...}
+```
+
+```
 export function parseISODateTime(t) {...}
 ```
 
