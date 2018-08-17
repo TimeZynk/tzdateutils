@@ -225,7 +225,7 @@ export function withParsedTime(date, time) {
 }
 
 export function firstTimeAfter(date, other) {
-    let d = other.withTime(date);
+    let d = withTime(other, date);
 
     while (d < other) {
         d = addDays(d, 1);
