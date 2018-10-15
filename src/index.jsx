@@ -359,6 +359,11 @@ export function parseISODate(d) {
         return null;
     }
 
+    if (typeof (d.getTime) === 'function') {
+        // Already a date, just return a copy
+        return toStartOfDay(d);
+    }
+
     return parseISODateTime(d + "T00:00:00.000");
 }
 
