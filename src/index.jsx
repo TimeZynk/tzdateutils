@@ -1,5 +1,5 @@
 /*!
-Copyright 2018 Timezynk AB
+Copyright 2019 Timezynk AB
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -367,10 +367,10 @@ export function parseISODate(d) {
     return parseISODateTime(d + "T00:00:00.000");
 }
 
+/**
+ * Adds extra utility functions to the date object
+ */
 export default function installDateExtensions(scope) {
-    /**
-     * Adds extra utility functions to the date object
-     */
     (function extendDatePrototype(prototype) {
         /**
          * Returns the ISO 8601 week number for this date
