@@ -335,7 +335,12 @@ export function parseISODateTime(t) {
         return new Date(t.getTime());
     }
 
-    const fields = t.match(ISO_DATE_TIME_FORMAT);
+    if (typeof (t) === 'number') {
+        // Interpret numeric argument as timestamp
+        return new Date(t);
+    }
+
+    const fields = ISO_DATE_TIME_FORMAT.exec(t);
 
     if (!fields) {
         return null;
@@ -362,6 +367,11 @@ export function parseISODate(d) {
     if (typeof (d.getTime) === 'function') {
         // Already a date, just return a copy
         return toStartOfDay(d);
+    }
+
+    if (typeof (d) === 'number') {
+        // Interpret numeric argument as timestamp
+        return toStartOfDay(new Date(d));
     }
 
     return parseISODateTime(d + "T00:00:00.000");
