@@ -2,6 +2,11 @@ Exported API
 ============
 
 ```
+
+export function isValidDate(date) {...}
+```
+
+```
 export function getWeek(date) {...}
 ```
 
