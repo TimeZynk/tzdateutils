@@ -20,6 +20,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+export function isValidDate(date) {
+    return date && date instanceof Date && !Number.isNaN(date.getTime());
+}
+
 export function getWeek(date) {
     // Create a copy of date object
     const target = new Date(date.valueOf());
@@ -199,7 +203,7 @@ export function lastDayOfMonth(date) {
  */
 export function withTime(date, other) {
     const d = new Date(date);
-    if (other instanceof Date) {
+    if (isValidDate(other)) {
         d.setHours(other.getHours(), other.getMinutes(), other.getSeconds(), other.getMilliseconds());
     }
     return d;
