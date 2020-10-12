@@ -20,12 +20,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-export function isValidDate(date: any) {
+export function isValidDate(date: unknown): boolean {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isNaN' does not exist on type 'NumberCon... Remove this comment to see the full error message
     return date && date instanceof Date && !Number.isNaN(date.getTime());
 }
 
-export function getWeek(date: Date) {
+export function getWeek(date: Date): number {
     // Create a copy of date object
     const target = new Date(date.valueOf());
 
@@ -46,7 +46,7 @@ export function getWeek(date: Date) {
     target.setMonth(0, 1);
     // Not a thursday? Correct the date to the next thursday
     if (target.getDay() !== 4) {
-        target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+        target.setMonth(0, 1 + ((4 - target.getDay() + 7) % 7));
     }
 
     // The weeknumber is the number of weeks between the
@@ -55,14 +55,14 @@ export function getWeek(date: Date) {
     return 1 + Math.ceil((firstThursday - target) / 604800000); // 604800000 = 7 * 24 * 3600 * 1000
 }
 
-export function getWeekYear(date: Date) {
+export function getWeekYear(date: Date): number {
     // Create a new date object for the thursday of this week
     const target = new Date(date.valueOf());
     target.setDate(target.getDate() - ((date.getDay() + 6) % 7) + 3);
     return target.getFullYear();
 }
 
-export function getISODateString(date: Date, separator: any) {
+export function getISODateString(date: Date, separator: string): string {
     let str = String(date.getFullYear());
     const m = date.getMonth() + 1;
     const d = date.getDate();
@@ -88,34 +88,38 @@ export function getISODateString(date: Date, separator: any) {
     return str;
 }
 
-export function getTimeString(date: Date) {
+export function getTimeString(date: Date): string {
     let str = '';
     const h = date.getHours();
     const m = date.getMinutes();
 
-    if (h < 10) { str += '0'; }
+    if (h < 10) {
+        str += '0';
+    }
     str += `${h}:`;
 
-    if (m < 10) { str += '0'; }
+    if (m < 10) {
+        str += '0';
+    }
     str += m;
     return str;
 }
 
-export function getISODay(date: Date) {
+export function getISODay(date: Date): number {
     return (date.getDay() + 6) % 7;
 }
 
-export function getDaysFrom(date: Date, from: Date) {
-    const dateMidDay = (new Date(date.valueOf())).setHours(12, 0, 0);
-    const fromMidDay = (new Date(from.valueOf())).setHours(12, 0, 0);
+export function getDaysFrom(date: Date, from: Date): number {
+    const dateMidDay = new Date(date.valueOf()).setHours(12, 0, 0);
+    const fromMidDay = new Date(from.valueOf()).setHours(12, 0, 0);
     return Math.round((dateMidDay - fromMidDay) / 86400000);
 }
 
-export function getTotalDaysInMonth(date: Date) {
+export function getTotalDaysInMonth(date: Date): number {
     return 32 - new Date(date.getFullYear(), date.getMonth(), 32).getDate();
 }
 
-export function withParsedISODate(date: Date, str: string) {
+export function withParsedISODate(date: Date, str: string): Date {
     const year = str.substr(0, 4);
     const month = str.substr(4, 2);
     const dayOfMonth = str.substr(6, 2);
@@ -129,73 +133,73 @@ export function withParsedISODate(date: Date, str: string) {
     return date;
 }
 
-export function getEpoch(date: Date) {
+export function getEpoch(date: Date): number {
     return Math.floor(date.getTime() / 1000);
 }
 
-export function addSeconds(date: Date, seconds: any) {
+export function addSeconds(date: Date, seconds: number): Date {
     const d = new Date(date.valueOf());
     d.setSeconds(d.getSeconds() + seconds, d.getMilliseconds());
     return d;
 }
 
-export function addDays(date: Date, days: any) {
+export function addDays(date: Date, days: number): Date {
     const d = new Date(date.valueOf());
     d.setDate(date.getDate() + days);
     return d;
 }
 
-export function addMonths(date: Date, months: any) {
+export function addMonths(date: Date, months: number): Date {
     const d = new Date(date.valueOf());
     d.setMonth(date.getMonth() + months);
     return d;
 }
 
-export function addYears(date: Date, years: any) {
+export function addYears(date: Date, years: number): Date {
     const d = new Date(date.valueOf());
     d.setFullYear(date.getFullYear() + years);
     return d;
 }
 
-export function addHours(date: Date, h: any) {
+export function addHours(date: Date, hours: number): Date {
     const d = new Date(date.valueOf());
-    d.setHours(date.getHours() + h);
+    d.setHours(date.getHours() + hours);
     return d;
 }
 
-export function addMinutes(date: Date, m: any) {
+export function addMinutes(date: Date, minutes: number): Date {
     const d = new Date(date.valueOf());
-    d.setMinutes(date.getMinutes() + m);
+    d.setMinutes(date.getMinutes() + minutes);
     return d;
 }
 
-export function toStartOfDay(date: Date) {
+export function toStartOfDay(date: Date): Date {
     const d = new Date(date.valueOf());
     d.setHours(0, 0, 0, 0);
     return d;
 }
 
-export function toEndOfDay(date: Date) {
+export function toEndOfDay(date: Date): Date {
     const d = new Date(date.valueOf());
     d.setHours(23, 59, 59, 999);
     return d;
 }
 
-export function firstDayOfWeek(date: Date) {
+export function firstDayOfWeek(date: Date): Date {
     return addDays(date, -getISODay(date)); // Subtract current weekday to get to monday
 }
 
-export function lastDayOfWeek(date: Date) {
+export function lastDayOfWeek(date: Date): Date {
     return addDays(date, 6 - getISODay(date)); // Subtract current weekday to get to monday
 }
 
-export function firstDayOfMonth(date: Date) {
+export function firstDayOfMonth(date: Date): Date {
     const d = new Date(date.valueOf());
     d.setDate(1);
     return d;
 }
 
-export function lastDayOfMonth(date: Date) {
+export function lastDayOfMonth(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0);
 }
 
@@ -203,7 +207,7 @@ export function lastDayOfMonth(date: Date) {
  * Copy time from `other` date to date while
  * preserving year, month and day.
  */
-export function withTime(date: Date, other: any) {
+export function withTime(date: Date, other: Date): Date {
     const d = new Date(date.valueOf());
     if (isValidDate(other)) {
         d.setHours(other.getHours(), other.getMinutes(), other.getSeconds(), other.getMilliseconds());
@@ -211,13 +215,13 @@ export function withTime(date: Date, other: any) {
     return d;
 }
 
-export function withSeconds(date: Date, seconds: any) {
+export function withSeconds(date: Date, seconds: number): Date {
     const d = new Date(date.valueOf());
     d.setSeconds(seconds, 0);
     return d;
 }
 
-export function withParsedTime(date: Date, time: any) {
+export function withParsedTime(date: Date, time: string): Date {
     const hours = [0, 0, 0, 0];
     const d = new Date(date.valueOf());
 
@@ -231,7 +235,7 @@ export function withParsedTime(date: Date, time: any) {
     return d;
 }
 
-export function firstTimeAfter(date: Date, other: any) {
+export function firstTimeAfter(date: Date, other: Date): Date {
     let d = withTime(other, date);
 
     while (d < other) {
@@ -244,24 +248,22 @@ export function firstTimeAfter(date: Date, other: any) {
 /**
  * Prints a duration in HH:MM from a timestamp in seconds
  */
-export function print_duration(timestamp: any) {
+export function print_duration(timestamp: number): string | null {
     let result = '';
-    let hours;
-    let minutes;
 
-    if (timestamp === null || typeof (timestamp) === 'undefined') {
+    if (timestamp === null || typeof timestamp === 'undefined') {
         return null;
     }
 
     // Change to minutes
     timestamp = Math.round(timestamp / 60000);
-    hours = Math.floor(timestamp / 60);
+    const hours = Math.floor(timestamp / 60);
     if (hours < 10) {
         result += '0';
     }
     result += `${hours}:`;
 
-    minutes = timestamp - hours * 60;
+    const minutes = timestamp - hours * 60;
     if (minutes < 10) {
         result += '0';
     }
@@ -275,12 +277,10 @@ export function print_duration(timestamp: any) {
  * @param timestamp timestamp to print
  * @return duration as HH h MM min
  */
-export function print_duration_long(timestamp: any) {
+export function print_duration_long(timestamp: number | null): string | null {
     let result = '';
-    let hours;
-    let minutes;
 
-    if (timestamp === null || typeof (timestamp) === 'undefined') {
+    if (timestamp === null || typeof timestamp === 'undefined') {
         return null;
     }
 
@@ -290,12 +290,12 @@ export function print_duration_long(timestamp: any) {
 
     // Change to minutes
     timestamp = Math.round(timestamp / 60000);
-    hours = Math.floor(timestamp / 60);
+    const hours = Math.floor(timestamp / 60);
     if (hours > 0) {
         result += `${hours} h`;
     }
 
-    minutes = timestamp - hours * 60;
+    const minutes = timestamp - hours * 60;
 
     if (result.length === 0 || minutes > 0) {
         if (result.length > 0) {
@@ -310,7 +310,7 @@ export function print_duration_long(timestamp: any) {
 /**
  * return duration with seconds
  */
-export function print_duration_full(timestamp: any) {
+export function print_duration_full(timestamp: number): string {
     const total = Math.round(timestamp / 1000);
     const seconds = total % 60;
     const minutes = (total - seconds) % 3600;
@@ -332,55 +332,52 @@ export function print_duration_full(timestamp: any) {
 
 const ISO_DATE_TIME_FORMAT = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?(?:\.(\d{3}))?/;
 
-export function parseISODateTime(t: any) {
-    if (t === null || typeof (t) === 'undefined') {
+export function parseISODateTime(t: Date | number | string | null | undefined): Date | null {
+    if (t === null || typeof t === 'undefined') {
         return null;
     }
 
-    if (typeof (t.getTime) === 'function') {
+    if (typeof (t as Date).getTime === 'function') {
         // Already a date, just return a copy
-        return new Date(t.getTime());
+        return new Date((t as Date).getTime());
     }
 
-    if (typeof (t) === 'number') {
+    if (typeof t === 'number') {
         // Interpret numeric argument as timestamp
         return new Date(t);
     }
 
-    const fields = ISO_DATE_TIME_FORMAT.exec(t);
+    const fields = ISO_DATE_TIME_FORMAT.exec(t as string);
 
     if (!fields) {
         return null;
     }
 
+    const parsedFields: number[] = [];
     for (let i = 1; i < fields.length; i++) {
-        // @ts-expect-error ts-migrate(2322) FIXME: Type 'number' is not assignable to type 'string'.
-        fields[i] = parseInt(fields[i] || 0, 10);
+        parsedFields[i] = parseInt(fields[i] || '0', 10);
     }
-    const date = fields.slice(1, 4);
-    // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
+    const date = parsedFields.slice(1, 4);
     date[1] -= 1;
-    const time = fields.slice(4);
+    const time = parsedFields.slice(4);
 
     const d = new Date();
-    // @ts-expect-error ts-migrate(2556) FIXME: Expected 1-3 arguments, but got 0 or more.
-    d.setFullYear(...date);
-    // @ts-expect-error ts-migrate(2556) FIXME: Expected 1-4 arguments, but got 0 or more.
-    d.setHours(...time);
+    d.setFullYear(date[0], date[1], date[2]);
+    d.setHours(time[0], time[1], time[2], time[3]);
     return d;
 }
 
-export function parseISODate(d: any) {
-    if (d === null || typeof (d) === 'undefined') {
+export function parseISODate(d: unknown): Date | null {
+    if (d === null || typeof d === 'undefined') {
         return null;
     }
 
-    if (typeof (d.getTime) === 'function') {
+    if (typeof (d as Date).getTime === 'function') {
         // Already a date, just return a copy
-        return toStartOfDay(d);
+        return toStartOfDay(d as Date);
     }
 
-    if (typeof (d) === 'number') {
+    if (typeof d === 'number') {
         // Interpret numeric argument as timestamp
         return toStartOfDay(new Date(d));
     }
@@ -390,8 +387,9 @@ export function parseISODate(d: any) {
 
 /**
  * Adds extra utility functions to the date object
+ * @deprecated
  */
-export default function installDateExtensions(scope: any) {
+export default function installDateExtensions(scope: any): void {
     (function extendDatePrototype(prototype) {
         /**
          * Returns the ISO 8601 week number for this date
@@ -408,11 +406,11 @@ export default function installDateExtensions(scope: any) {
         };
 
         /**
-        * Get the ISO week date year number
-        * Courtesy of http://techblog.procurios.nl/k/news/view/33796/14863/Calculate-ISO-8601-week-and-year-in-javascript.html
-        *
-        * @return int
-        */
+         * Get the ISO week date year number
+         * Courtesy of http://techblog.procurios.nl/k/news/view/33796/14863/Calculate-ISO-8601-week-and-year-in-javascript.html
+         *
+         * @return int
+         */
         prototype.getWeekYear = function () {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
@@ -421,7 +419,7 @@ export default function installDateExtensions(scope: any) {
             return getWeekYear(this);
         };
 
-        prototype.getISODateString = function (separator: any) {
+        prototype.getISODateString = function (separator: string) {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.getISODateString()');
@@ -449,7 +447,7 @@ export default function installDateExtensions(scope: any) {
             return getISODay(this);
         };
 
-        prototype.getDaysFrom = function (from: any) {
+        prototype.getDaysFrom = function (from: Date) {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.getDaysFrom()');
@@ -465,7 +463,7 @@ export default function installDateExtensions(scope: any) {
             return getTotalDaysInMonth(this);
         };
 
-        prototype.parseISODate = function (str: any) {
+        prototype.parseISODate = function (str: string) {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.parseISODate()');
@@ -481,7 +479,7 @@ export default function installDateExtensions(scope: any) {
             return getEpoch(this);
         };
 
-        prototype.addSeconds = function (seconds: any) {
+        prototype.addSeconds = function (seconds: number) {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addSeconds()');
@@ -489,7 +487,7 @@ export default function installDateExtensions(scope: any) {
             return addSeconds(this, seconds);
         };
 
-        prototype.addDays = function (days: any) {
+        prototype.addDays = function (days: number) {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addDays()');
@@ -497,7 +495,7 @@ export default function installDateExtensions(scope: any) {
             return addDays(this, days);
         };
 
-        prototype.addMonths = function (months: any) {
+        prototype.addMonths = function (months: number) {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addMonths()');
@@ -505,7 +503,7 @@ export default function installDateExtensions(scope: any) {
             return addMonths(this, months);
         };
 
-        prototype.addYears = function (years: any) {
+        prototype.addYears = function (years: number) {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addYears()');
@@ -513,7 +511,7 @@ export default function installDateExtensions(scope: any) {
             return addYears(this, years);
         };
 
-        prototype.addHours = function (h: any) {
+        prototype.addHours = function (h: number) {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addHours()');
@@ -521,7 +519,7 @@ export default function installDateExtensions(scope: any) {
             return addHours(this, h);
         };
 
-        prototype.addMinutes = function (m: any) {
+        prototype.addMinutes = function (m: number) {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addMinutes()');
@@ -585,7 +583,7 @@ export default function installDateExtensions(scope: any) {
             return withTime(this, date);
         };
 
-        prototype.parseISOTime = function (time: any) {
+        prototype.parseISOTime = function (time: string) {
             // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.parseISOTime()');
@@ -600,7 +598,7 @@ export default function installDateExtensions(scope: any) {
             }
             return firstTimeAfter(this, date);
         };
-    }(scope.Date.prototype));
+    })(scope.Date.prototype);
 
     (function installDateFunctions(window) {
         // @ts-expect-error ts-migrate(7019) FIXME: Rest parameter 'args' implicitly has an 'any[]' ty... Remove this comment to see the full error message
@@ -642,5 +640,5 @@ export default function installDateExtensions(scope: any) {
             // @ts-expect-error ts-migrate(2556) FIXME: Expected 1 arguments, but got 0 or more.
             return parseISODate(...args);
         };
-    }(scope));
+    })(scope);
 }
