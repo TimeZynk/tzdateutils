@@ -21,8 +21,10 @@ SOFTWARE.
 */
 
 export function isValidDate(date: unknown): boolean {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isNaN' does not exist on type 'NumberCon... Remove this comment to see the full error message
-    return date && date instanceof Date && !Number.isNaN(date.getTime());
+    if (date && date instanceof Date) {
+        return !Number.isNaN(date.getTime());
+    }
+    return false;
 }
 
 export function getWeek(date: Date): number {
@@ -51,8 +53,7 @@ export function getWeek(date: Date): number {
 
     // The weeknumber is the number of weeks between the
     // first thursday of the year and the thursday in the target week
-    // @ts-expect-error ts-migrate(2363) FIXME: The right-hand side of an arithmetic operation mus... Remove this comment to see the full error message
-    return 1 + Math.ceil((firstThursday - target) / 604800000); // 604800000 = 7 * 24 * 3600 * 1000
+    return 1 + Math.ceil((firstThursday - target.valueOf()) / 604800000); // 604800000 = 7 * 24 * 3600 * 1000
 }
 
 export function getWeekYear(date: Date): number {
@@ -230,8 +231,7 @@ export function withParsedTime(date: Date, time: string): Date {
         hours[i] = parseInt(times[i], 10);
     }
 
-    // @ts-expect-error ts-migrate(2556) FIXME: Expected 1-4 arguments, but got 0 or more.
-    d.setHours(...hours);
+    d.setHours(hours[0], hours[1], hours[2], hours[3]);
     return d;
 }
 
@@ -398,7 +398,6 @@ export default function installDateExtensions(scope: any): void {
          * @return int
          */
         prototype.getWeek = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.getWeek()');
             }
@@ -412,7 +411,6 @@ export default function installDateExtensions(scope: any): void {
          * @return int
          */
         prototype.getWeekYear = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.getWeekYear()');
             }
@@ -420,7 +418,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.getISODateString = function (separator: string) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.getISODateString()');
             }
@@ -428,7 +425,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.getTimeString = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.getTimeString()');
             }
@@ -440,7 +436,6 @@ export default function installDateExtensions(scope: any): void {
          * and 6 for sunday.
          */
         prototype.getISODay = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.getISODay()');
             }
@@ -448,7 +443,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.getDaysFrom = function (from: Date) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.getDaysFrom()');
             }
@@ -456,7 +450,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.getTotalDaysInMonth = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.getTotalDaysInMonth()');
             }
@@ -464,7 +457,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.parseISODate = function (str: string) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.parseISODate()');
             }
@@ -472,7 +464,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.getEpoch = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.getEpoch()');
             }
@@ -480,7 +471,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.addSeconds = function (seconds: number) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addSeconds()');
             }
@@ -488,7 +478,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.addDays = function (days: number) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addDays()');
             }
@@ -496,7 +485,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.addMonths = function (months: number) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addMonths()');
             }
@@ -504,7 +492,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.addYears = function (years: number) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addYears()');
             }
@@ -512,7 +499,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.addHours = function (h: number) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addHours()');
             }
@@ -520,7 +506,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.addMinutes = function (m: number) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.addMinutes()');
             }
@@ -528,7 +513,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.toStartOfDay = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.toStartOfDay()');
             }
@@ -536,7 +520,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.toEndOfDay = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.toEndOfDay()');
             }
@@ -544,7 +527,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.firstDayOfWeek = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.firstDayOfWeek()');
             }
@@ -552,7 +534,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.lastDayOfWeek = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.lastDayOfWeek()');
             }
@@ -560,7 +541,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.firstDayOfMonth = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.firstDayOfMonth()');
             }
@@ -568,7 +548,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.lastDayOfMonth = function () {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.lastDayOfMonth()');
             }
@@ -576,7 +555,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.withTime = function (date: Date) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.withTime()');
             }
@@ -584,7 +562,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.parseISOTime = function (time: string) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.parseISOTime()');
             }
@@ -592,7 +569,6 @@ export default function installDateExtensions(scope: any): void {
         };
 
         prototype.firstTimeAfter = function (date: Date) {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function Date.prototype.firstTimeAfter()');
             }
@@ -601,44 +577,32 @@ export default function installDateExtensions(scope: any): void {
     })(scope.Date.prototype);
 
     (function installDateFunctions(window) {
-        // @ts-expect-error ts-migrate(7019) FIXME: Rest parameter 'args' implicitly has an 'any[]' ty... Remove this comment to see the full error message
-        window.print_duration = (...args) => {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
+        window.print_duration = (ts: number) => {
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function window.print_duration()');
             }
-            // @ts-expect-error ts-migrate(2556) FIXME: Expected 1 arguments, but got 0 or more.
-            return print_duration(...args);
+            return print_duration(ts);
         };
 
-        // @ts-expect-error ts-migrate(7019) FIXME: Rest parameter 'args' implicitly has an 'any[]' ty... Remove this comment to see the full error message
-        window.print_duration_long = (...args) => {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
+        window.print_duration_long = (ts: number) => {
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function window.print_duration_long()');
             }
-            // @ts-expect-error ts-migrate(2556) FIXME: Expected 1 arguments, but got 0 or more.
-            return print_duration_long(...args);
+            return print_duration_long(ts);
         };
 
-        // @ts-expect-error ts-migrate(7019) FIXME: Rest parameter 'args' implicitly has an 'any[]' ty... Remove this comment to see the full error message
-        window.parseISODateTime = (...args) => {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
+        window.parseISODateTime = (str: any) => {
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function window.parseISODateTime()');
             }
-            // @ts-expect-error ts-migrate(2556) FIXME: Expected 1 arguments, but got 0 or more.
-            return parseISODateTime(...args);
+            return parseISODateTime(str);
         };
 
-        // @ts-expect-error ts-migrate(7019) FIXME: Rest parameter 'args' implicitly has an 'any[]' ty... Remove this comment to see the full error message
-        window.parseISODate = (...args) => {
-            // @ts-expect-error ts-migrate(2580) FIXME: Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
+        window.parseISODate = (str: any) => {
             if (process.env.NODE_ENV !== 'production') {
                 console.warn('Use of deprecated function window.parseISODate()');
             }
-            // @ts-expect-error ts-migrate(2556) FIXME: Expected 1 arguments, but got 0 or more.
-            return parseISODate(...args);
+            return parseISODate(str);
         };
     })(scope);
 }
