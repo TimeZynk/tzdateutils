@@ -7,6 +7,7 @@
         "url": "git@github.com:TimeZynk/tzdateutils.git"
     },
     "main": "lib/index.js",
+    "types": "lib/index.d.ts",
     "scripts": {
         "prepare": "npm run build",
         "preversion": "npm run lint",
