@@ -14,7 +14,6 @@
         "version": "npm run format && git add -A src",
         "postversion": "git push && git push --tags",
         "format": "prettier --write \"src/**/*.ts\"",
-        "test": "TZ=UTC jest",
         "build": "tsc",
         "lint": "eslint src --ext .ts"
     },
