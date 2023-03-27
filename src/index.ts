@@ -331,7 +331,7 @@ export function print_duration_full(timestamp: number): string {
 }
 
 const ISO_DATE_TIME_FORMAT = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?(?:\.(\d{3}))?/;
-
+const DATE_FORMAT = /^(\d{4})-([0]\d|1[0-2])-([0-2]\d|3[01])$/;
 export function parseISODateTime(t: Date | number | string | null | undefined): Date | null {
     if (t === null || typeof t === 'undefined') {
         return null;
@@ -347,7 +347,7 @@ export function parseISODateTime(t: Date | number | string | null | undefined): 
         return new Date(t);
     }
 
-    const fields = ISO_DATE_TIME_FORMAT.exec(t as string);
+    const fields = ISO_DATE_TIME_FORMAT.exec(t as string) || DATE_FORMAT.exec(t as string);
 
     if (!fields) {
         return null;
@@ -363,7 +363,7 @@ export function parseISODateTime(t: Date | number | string | null | undefined): 
 
     const d = new Date();
     d.setFullYear(date[0], date[1], date[2]);
-    d.setHours(time[0], time[1], time[2], time[3]);
+    d.setHours(time[0] || 0, time[1] || 0, time[2] || 0, time[3] || 0);
     return d;
 }
 
