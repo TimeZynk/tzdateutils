@@ -140,37 +140,37 @@ export function getEpoch(date: Date): number {
 
 export function addSeconds(date: Date, seconds: number): Date {
     const d = new Date(date.valueOf());
-    d.setSeconds(d.getSeconds() + seconds, d.getMilliseconds());
+    d.setSeconds(d.getSeconds() + Number(seconds), d.getMilliseconds());
     return d;
 }
 
 export function addDays(date: Date, days: number): Date {
     const d = new Date(date.valueOf());
-    d.setDate(date.getDate() + days);
+    d.setDate(date.getDate() + Number(days));
     return d;
 }
 
 export function addMonths(date: Date, months: number): Date {
     const d = new Date(date.valueOf());
-    d.setMonth(date.getMonth() + months);
+    d.setMonth(date.getMonth() + Number(months));
     return d;
 }
 
 export function addYears(date: Date, years: number): Date {
     const d = new Date(date.valueOf());
-    d.setFullYear(date.getFullYear() + years);
+    d.setFullYear(date.getFullYear() + Number(years));
     return d;
 }
 
 export function addHours(date: Date, hours: number): Date {
     const d = new Date(date.valueOf());
-    d.setHours(date.getHours() + hours);
+    d.setHours(date.getHours() + Number(hours));
     return d;
 }
 
 export function addMinutes(date: Date, minutes: number): Date {
     const d = new Date(date.valueOf());
-    d.setMinutes(date.getMinutes() + minutes);
+    d.setMinutes(date.getMinutes() + Number(minutes));
     return d;
 }
 
