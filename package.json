@@ -1,35 +1,39 @@
 {
-    "name": "tzdateutils",
-    "version": "1.4.5",
-    "description": "Date and Time utilities",
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:TimeZynk/tzdateutils.git"
-    },
-    "main": "lib/index.js",
-    "types": "lib/index.d.ts",
-    "scripts": {
-        "prepare": "npm run build",
-        "preversion": "npm run lint",
-        "version": "npm run format && git add -A src",
-        "postversion": "git push && git push --tags",
-        "format": "prettier --write \"src/**/*.ts\"",
-        "build": "tsc",
-        "lint": "eslint src --ext .ts"
-    },
-    "devDependencies": {
-        "@types/node": "^14.11.8",
-        "@typescript-eslint/eslint-plugin": "^4.4.0",
-        "@typescript-eslint/parser": "^4.4.0",
-        "eslint": "^6.8.0",
-        "eslint-config-airbnb-base": "^14.1.0",
-        "eslint-config-prettier": "^6.12.0",
-        "eslint-plugin-babel": "^5.3.0",
-        "eslint-plugin-import": "^2.20.2",
-        "eslint-plugin-prettier": "^3.1.4",
-        "prettier": "^2.1.2",
-        "typescript": "^4.0.3"
-    },
-    "author": "Timezynk AB",
-    "license": "MIT"
+  "name": "tzdateutils",
+  "version": "1.4.5",
+  "description": "Date and Time utilities",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:TimeZynk/tzdateutils.git"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "prepare": "npm run build",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "build": "tsc",
+    "lint": "eslint src --ext .ts"
+  },
+  "devDependencies": {
+    "@types/node": "^14.11.8",
+    "@typescript-eslint/eslint-plugin": "^4.4.0",
+    "@typescript-eslint/parser": "^4.4.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3"
+  },
+  "engine": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "author": "Timezynk AB",
+  "license": "MIT"
 }
